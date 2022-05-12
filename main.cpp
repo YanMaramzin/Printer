@@ -17,5 +17,42 @@ int main()
 
 	std::cerr << " принтеров создано: " << Printing::Printer::getCountCreatedPrinters() << std::endl;
 
+	std::ofstream fout;
+
+    	fout.open("text.txt",std::ofstream::app);
+
+    	if(!fout.is_open())
+    	{
+        	std::cout<<"Ошибка"<<std::endl;
+    	}
+    	else
+    	{	
+       	 	std::cout<<"Файл создан"<<std::endl;
+        	fout.write((char*)&printer2,sizeof(Printing::Printer));
+    	}
+
+    	fout.close();
+
+    	std::ifstream fin;
+
+    	fin.open("text.txt");
+    	std::string stra;
+
+    	if(!fin.is_open())
+        {
+            std::cout<<"Ошибка"<<std::endl;
+        }
+        else
+        {
+
+            while(!fin.eof())
+                fin >>stra;
+        }
+     	fin.close();
+
+     	Printing::Printer printer3;
+     	printer3.print(stra);
+
+
 	return 0;
 }
