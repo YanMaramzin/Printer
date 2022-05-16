@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 #include "printer.h"
 #include <fstream>
-#include <vector>
 
 /**
  * @brief этот тест ничего не тестирует. это стартовый тест, который был написан до написания кода свомого принтера.
@@ -72,7 +71,6 @@ TEST(PrinterTests, printing_custom) {
 
 TEST(PrinterTests, printing_input) {
     std::stringstream printString;
-    std::stringstream printString2;
 
     Printing::Printer testedObject(printString);
     testedObject.print(" Hello Word! ");
