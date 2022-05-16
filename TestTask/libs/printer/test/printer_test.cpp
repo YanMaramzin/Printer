@@ -69,7 +69,7 @@ TEST(PrinterTests, printing_custom) {
 }
 
 
-TEST(PrinterTests, printing_input) {
+TEST(PrinterTests, printing_output) {
     std::stringstream printString;
 
     Printing::Printer testedObject(printString);
@@ -79,4 +79,18 @@ TEST(PrinterTests, printing_input) {
     fout.open("out.txt");
     fout<<printString.str();
     fout.close();
+}
+
+TEST(PrinterTests,printing_input)
+{
+    std::ifstream fin("out.txt");
+    Printing::Printer testedObject;
+
+    char buff[50];
+    fin.getline(buff, 50);
+    fin.close();
+    testedObject.print(buff);
+
+
+
 }
