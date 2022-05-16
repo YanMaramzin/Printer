@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 #include "printer.h"
+#include <fstream>
+#include <vector>
 
 /**
  * @brief этот тест ничего не тестирует. это стартовый тест, который был написан до написания кода свомого принтера.
@@ -65,4 +67,18 @@ TEST(PrinterTests, printing_custom) {
 
 	auto printerResult = printString.str();
 	ASSERT_EQ(printerResult, (" Hello Word! \n"));
+}
+
+
+TEST(PrinterTests, printing_input) {
+    std::stringstream printString;
+    std::stringstream printString2;
+
+    Printing::Printer testedObject(printString);
+    testedObject.print(" Hello Word! ");
+
+    std::ofstream fout;
+    fout.open("out.txt");
+    fout<<printString.str();
+    fout.close();
 }
