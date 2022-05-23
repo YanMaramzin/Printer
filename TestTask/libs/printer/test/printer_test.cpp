@@ -68,29 +68,37 @@ TEST(PrinterTests, printing_custom) {
 	ASSERT_EQ(printerResult, (" Hello Word! \n"));
 }
 
+/**
+ * @brief этот тест проверяет выводит ли принтер в файл. Результат печати хранится в файле out.txt
+ */
 
 TEST(PrinterTests, printing_output) {
-    std::stringstream printString;
 
-    Printing::Printer testedObject(printString);
-    testedObject.print(" Hello Word! ");
 
-    std::ofstream fout;
-    fout.open("out.txt");
-    fout<<printString.str();
+    std::ofstream fout("out.txt");
+
+    Printing::Printer testedObject(fout);
+    testedObject.print("Hello, World");
+    testedObject.print("Hello");
+    testedObject.print("Hello, Qt");
+
     fout.close();
+
 }
+
+/**
+ * @brief этот тест проверяет печатает ли принтер  строку из файла.
+ */
 
 TEST(PrinterTests,printing_input)
 {
+    std::string str;
     std::ifstream fin("out.txt");
     Printing::Printer testedObject;
-
-    char buff[50];
-    fin.getline(buff, 50);
+    while(!fin.eof())
+    {
+       fin>>str;
+       testedObject.print(str);
+    }
     fin.close();
-    testedObject.print(buff);
-
-
-
 }
