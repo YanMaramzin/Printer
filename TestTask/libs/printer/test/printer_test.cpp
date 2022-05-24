@@ -70,6 +70,7 @@ TEST(PrinterTests, printing_custom) {
 
 /**
  * @brief этот тест проверяет выводит ли принтер в файл. Результат печати хранится в файле out.txt
+ * Проверяем соответствует ли первая строка из файла ожидаемому результату.
  */
 
 TEST(PrinterTests, printing_output) {
@@ -77,13 +78,17 @@ TEST(PrinterTests, printing_output) {
 
     std::ofstream fout("out.txt");
 
-    Printing::Printer testedObject(fout);
-    testedObject.print("Hello, World");
-    testedObject.print("Hello");
-    testedObject.print("Hello, Qt");
+    Printing::Printer testedObject1(fout);
+    testedObject1.print("Hello, World");
+    testedObject1.print("Hello");
+    testedObject1.print("Hello, Qt");
 
     fout.close();
+    std::string str;
+    std::ifstream fin("out.txt");
+    getline(fin,str);
 
+    ASSERT_EQ(str,"Hello, World");
 }
 
 /**
@@ -94,11 +99,11 @@ TEST(PrinterTests,printing_input)
 {
     std::string str;
     std::ifstream fin("out.txt");
-    Printing::Printer testedObject;
+    Printing::Printer testedObject2;
     while(!fin.eof())
     {
-       fin>>str;
-       testedObject.print(str);
+       getline(fin,str);
+       testedObject2.print(str);
     }
     fin.close();
 }
